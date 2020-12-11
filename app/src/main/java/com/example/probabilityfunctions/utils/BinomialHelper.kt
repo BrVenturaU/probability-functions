@@ -98,17 +98,17 @@ class BinomialHelper {
             return probabilidadAcumulada
         }
 
-        private fun validarValorProbabilidad(p:Float){
+        fun validarValorProbabilidad(p:Float){
             if(p<0 || p>1)
                 throw NumberFormatException("El valor de p debe estar entre cero y uno.")
         }
 
-        private fun validarFactorial(n:Int){
+        fun validarFactorial(n:Int){
             if(n < 0)
                 throw NumberFormatException("El valor de n debe ser mayor o igual a cero.")
         }
 
-        private fun validarValoresInicioFin(inicio: Int, fin: Int, message: String="Valores inválidos. Verifique."){
+        fun validarValoresInicioFin(inicio: Int, fin: Int, message: String="Valores inválidos. Verifique."){
             if (fin < inicio)
                 throw NumberFormatException(message)
         }

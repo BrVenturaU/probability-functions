@@ -97,7 +97,7 @@
             android:id="@+id/opcionDos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone">
+            android:visibility="visible">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -192,15 +192,31 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnCalcular"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/btnOptions"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
-            android:text="Calcular"
-            android:layout_gravity="center"
-            android:visibility="gone"/>
+            android:gravity="center"
+            android:visibility="gone">
+            <Button
+                android:id="@+id/btnCalcular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="24dp"
+                android:text="Calcular"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/btnLimpiar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Limpiar"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:layout_gravity="center"/>
+        </LinearLayout>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvResultado"
@@ -210,7 +226,7 @@
             app:cardCornerRadius="2dp"
             app:cardUseCompatPadding="true"
             app:cardPreventCornerOverlap="true"
-            android:visibility="gone">
+            android:visibility="visible">
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="match_parent"
@@ -224,19 +240,43 @@
                    android:textSize="24dp"
                    android:layout_marginBottom="16dp"
                    android:gravity="center"/>
-               <TextView
-                   android:id="@+id/tvProbabilidad"
-                   android:layout_width="wrap_content"
+               <LinearLayout
+                   android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:textSize="18dp"
-                   android:text="Probabilidad P(x):"
-                   android:layout_marginBottom="16dp"/>
-               <TextView
-                   android:id="@+id/tvProbabilidadContraria"
-                   android:layout_width="wrap_content"
+                   android:orientation="horizontal"
+                   android:layout_marginBottom="16dp">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="18dp"
+                       android:text="Probabilidad P(x):"
+                       android:layout_marginRight="8dp"/>
+                   <TextView
+                       android:id="@+id/tvProbabilidad"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="18dp"
+                       android:textStyle="bold"
+                       android:text="0.00"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:textSize="18dp"
-                   android:text="Probabilidad Q(x):"/>
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="18dp"
+                       android:text="Probabilidad Q(x):"
+                       android:layout_marginRight="8dp"/>
+                   <TextView
+                       android:id="@+id/tvProbabilidadContraria"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="18dp"
+                       android:textStyle="bold"
+                       android:text="0.00"/>
+               </LinearLayout>
            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
