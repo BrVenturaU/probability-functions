@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ProbabilityFunctions</string>
+
+<!--    Spinner values-->
+    <string-array name="binomialOptions">
+        <item>𝑃(𝑋 = 𝑎)</item>
+        <item>𝑃(𝑋 ≤ 𝑎)</item>
+        <item>𝑃(𝑋 ≥ 𝑎)</item>
+        <item>𝑃(𝑎 ≤ 𝑋 ≤ 𝑏)</item>
+    </string-array>
 </resources>
