@@ -83,7 +83,7 @@ class BinomialHelper {
 
             validarValorProbabilidad(p)
             validarValoresNegativos(intArrayOf(n), "El valor de n no puede ser negativo.")
-            validarValoresNegativos(intArrayOf(inicio, fin), "Los valores de inicio (a) y fin (b) deben ser mayores o iguales a cero.")
+            validarValoresNegativos(intArrayOf(inicio, fin), "Los valores para x deben ser mayores o iguales a cero.")
             validarValoresInicioFin(fin, n, "El valor de fin debe ser menor o igual a n.")
             validarValoresInicioFin(inicio, fin, "El valor de inicio debe ser menor o igual al valor de fin.")
 

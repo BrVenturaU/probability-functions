@@ -71,9 +71,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, Vi
 
     private fun calculateWithSpinner(editText: EditText, switch: Switch, position: Int){
         try {
-            validateInputData(etN.text.toString(), "El valor de n es requerido.")
-            validateInputData(etProbabilidad.text.toString(), "El valor de p es requerido.")
-            validateInputData(editText.text.toString(), "El valor del evento x es requerido.")
+            validateInputData(etN.text.toString(), etN, false,"El valor de n es requerido.")
+            validateInputData(etProbabilidad.text.toString(), etProbabilidad, false,"El valor de p es requerido.")
+            validateInputData(editText.text.toString(), editText, false,"El valor del evento x es requerido.")
+
             val x = editText.text.toString().toInt()
             val isValueIncluded = switch.isChecked
             val n = etN.text.toString().toInt()
@@ -82,7 +83,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, Vi
             else BinomialHelper.probabilidadBinomialAcumulada(n, p, inicio = x, incluirInicio = isValueIncluded)
             setResultData(result.toString())
         }catch (ne: NumberFormatException){
-            Toast.makeText(this, ne.message, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, ne.message, Toast.LENGTH_SHORT).show()
         }catch (ex: Exception){
             Toast.makeText(this, "Error interno, por favor comuniquese con los desarrolladores.", Toast.LENGTH_LONG).show()
         }
@@ -91,10 +92,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, Vi
     private fun calculateWithRange(){
 
         try {
-            validateInputData(etN.text.toString(), "El valor de n es requerido.")
-            validateInputData(etProbabilidad.text.toString(), "El valor de p es requerido.")
-            validateInputData(etEventoCuatroA.text.toString(), "El primer valor (a) es requerido.")
-            validateInputData(etEventoCuatroB.text.toString(), "El segundo valor (b) es requerido.")
+            validateInputData(etN.text.toString(), etN, false,"El valor de n es requerido.")
+            validateInputData(etProbabilidad.text.toString(), etProbabilidad,false, "El valor de p es requerido.")
+            validateInputData(etEventoCuatroA.text.toString(), etEventoCuatroA, false,"El primer valor (a) es requerido.")
+            validateInputData(etEventoCuatroB.text.toString(), etEventoCuatroB, false, "El segundo valor (b) es requerido.")
+
             val xA = etEventoCuatroA.text.toString().toInt()
             val xB = etEventoCuatroB.text.toString().toInt()
             val isAIncluded = cbxIncluirA.isChecked
@@ -104,7 +106,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, Vi
             val result = BinomialHelper.probabilidadBinomialAcumulada(n,p,xA,xB, isAIncluded,isBIncluded)
             setResultData(result.toString())
         }catch (ne: NumberFormatException){
-            Toast.makeText(this, ne.message, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, ne.message, Toast.LENGTH_SHORT).show()
         }catch (ex: Exception){
             Toast.makeText(this, "Error interno, por favor comuniquese con los desarrolladores.", Toast.LENGTH_LONG).show()
         }
@@ -133,11 +135,20 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, Vi
         tvProbabilidadContraria.text = ""
         for (editText in editTexts){
             editText.text = null
+            editText.error = null
         }
     }
 
-    private fun validateInputData(value: String, mensaje:String="El valor no debe estar vació."){
-        if(value.isNullOrEmpty())
+    private fun validateInputData(value: String, editText: EditText, hasException: Boolean=true,
+                                  mensaje:String="Error de validación."){
+
+        if(value.isNullOrEmpty() && hasException){
+            editText.error = mensaje
             throw NumberFormatException(mensaje)
+        }
+        else if (value.isNullOrEmpty() && !hasException){
+            editText.error = mensaje
+            throw NumberFormatException("Error de validación.")
+        }
     }
 }

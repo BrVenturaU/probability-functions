@@ -80,7 +80,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="𝑃(𝑋 = 𝑎):"
+                android:text="P(X = a):"
                 android:layout_marginRight="8dp"
                 />
             <EditText
@@ -101,7 +101,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="𝑃(𝑋 ≤ 𝑎):"
+                android:text="P(X ≤ a):"
                 android:layout_marginRight="8dp"
                 />
             <EditText
@@ -129,7 +129,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="𝑃(𝑋 ≥ 𝑎):"
+                android:text="P(X ≥ a):"
                 android:layout_marginRight="8dp"
                 />
             <EditText
@@ -157,7 +157,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="𝑃(𝑎 ≤ 𝑋 ≤ 𝑏).:"
+                android:text="P(a ≤ X ≤ b):"
                 android:layout_marginRight="8dp"
                 />
             <EditText
@@ -226,7 +226,7 @@
             app:cardCornerRadius="2dp"
             app:cardUseCompatPadding="true"
             app:cardPreventCornerOverlap="true"
-            android:visibility="visible">
+            android:visibility="gone">
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="match_parent"
