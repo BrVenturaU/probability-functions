@@ -24,7 +24,6 @@ class BinomialHelper {
             validarFactorial(n)
             var factorial: Long = 1
             for (i in 1..n) {
-                // factorial = factorial * i;
                 factorial *= i.toLong()
             }
             return factorial
@@ -83,8 +82,8 @@ class BinomialHelper {
                 incluirFin: Boolean=true): Double{
 
             validarValorProbabilidad(p)
-            validarValoresNegativos(intArrayOf(n), "El valor de N no puede ser negativo.")
-            validarValoresNegativos(intArrayOf(inicio, fin), "Los valores de inicio y fin deben ser mayores o iguales a cero.")
+            validarValoresNegativos(intArrayOf(n), "El valor de n no puede ser negativo.")
+            validarValoresNegativos(intArrayOf(inicio, fin), "Los valores para x deben ser mayores o iguales a cero.")
             validarValoresInicioFin(fin, n, "El valor de fin debe ser menor o igual a n.")
             validarValoresInicioFin(inicio, fin, "El valor de inicio debe ser menor o igual al valor de fin.")
 
@@ -98,22 +97,22 @@ class BinomialHelper {
             return probabilidadAcumulada
         }
 
-        private fun validarValorProbabilidad(p:Float){
+        fun validarValorProbabilidad(p:Float){
             if(p<0 || p>1)
                 throw NumberFormatException("El valor de p debe estar entre cero y uno.")
         }
 
-        private fun validarFactorial(n:Int){
+        fun validarFactorial(n:Int){
             if(n < 0)
                 throw NumberFormatException("El valor de n debe ser mayor o igual a cero.")
         }
 
-        private fun validarValoresInicioFin(inicio: Int, fin: Int, message: String="Valores inválidos. Verifique."){
+        fun validarValoresInicioFin(inicio: Int, fin: Int, message: String="Valores inválidos. Verifique."){
             if (fin < inicio)
                 throw NumberFormatException(message)
         }
 
-        private fun validarValoresNegativos(numbers: IntArray, message: String="El valor no puede ser negativo."){
+        fun validarValoresNegativos(numbers: IntArray, message: String="El valor no puede ser negativo."){
             for (number in numbers){
                 if (number<0)
                     throw NumberFormatException(message)
