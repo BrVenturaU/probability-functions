@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.*
 import com.example.probabilityfunctions.utils.BinomialHelper
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.Exception
+import java.lang.NumberFormatException
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,27 +70,49 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, Vi
     }
 
     private fun calculateWithSpinner(editText: EditText, switch: Switch, position: Int){
-        val x = editText.text.toString().toInt()
-        val isValueIncluded = switch.isChecked
-        val n = etN.text.toString().toInt()
-        val p = etProbabilidad.text.toString().toFloat()
-        val result = if (position == 2) BinomialHelper.probabilidadBinomialAcumulada(n, p, fin = x, incluirFin = isValueIncluded)
-                        else BinomialHelper.probabilidadBinomialAcumulada(n, p, inicio = x, incluirInicio = isValueIncluded)
-        tvProbabilidad.text = "${result}"
-        tvProbabilidadContraria.text = " ${BinomialHelper.probabilidadContraria(result.toFloat())}"
-        cvResultado.visibility = View.VISIBLE
+        try {
+            validateInputData(etN.text.toString(), "El valor de n es requerido.")
+            validateInputData(etProbabilidad.text.toString(), "El valor de p es requerido.")
+            validateInputData(editText.text.toString(), "El valor del evento x es requerido.")
+            val x = editText.text.toString().toInt()
+            val isValueIncluded = switch.isChecked
+            val n = etN.text.toString().toInt()
+            val p = etProbabilidad.text.toString().toFloat()
+            val result = if (position == 2) BinomialHelper.probabilidadBinomialAcumulada(n, p, fin = x, incluirFin = isValueIncluded)
+            else BinomialHelper.probabilidadBinomialAcumulada(n, p, inicio = x, incluirInicio = isValueIncluded)
+            setResultData(result.toString())
+        }catch (ne: NumberFormatException){
+            Toast.makeText(this, ne.message, Toast.LENGTH_LONG).show()
+        }catch (ex: Exception){
+            Toast.makeText(this, "Error interno, por favor comuniquese con los desarrolladores.", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun calculateWithRange(){
-        val xA = etEventoCuatroA.text.toString().toInt()
-        val xB = etEventoCuatroB.text.toString().toInt()
-        val isAIncluded = cbxIncluirA.isChecked
-        val isBIncluded = cbxIncluirB.isChecked
-        val n = etN.text.toString().toInt()
-        val p = etProbabilidad.text.toString().toFloat()
-        val result = BinomialHelper.probabilidadBinomialAcumulada(n,p,xA,xB, isAIncluded,isBIncluded)
-        tvProbabilidad.text = "${result}"
-        tvProbabilidadContraria.text = " ${BinomialHelper.probabilidadContraria(result.toFloat())}"
+
+        try {
+            validateInputData(etN.text.toString(), "El valor de n es requerido.")
+            validateInputData(etProbabilidad.text.toString(), "El valor de p es requerido.")
+            validateInputData(etEventoCuatroA.text.toString(), "El primer valor (a) es requerido.")
+            validateInputData(etEventoCuatroB.text.toString(), "El segundo valor (b) es requerido.")
+            val xA = etEventoCuatroA.text.toString().toInt()
+            val xB = etEventoCuatroB.text.toString().toInt()
+            val isAIncluded = cbxIncluirA.isChecked
+            val isBIncluded = cbxIncluirB.isChecked
+            val n = etN.text.toString().toInt()
+            val p = etProbabilidad.text.toString().toFloat()
+            val result = BinomialHelper.probabilidadBinomialAcumulada(n,p,xA,xB, isAIncluded,isBIncluded)
+            setResultData(result.toString())
+        }catch (ne: NumberFormatException){
+            Toast.makeText(this, ne.message, Toast.LENGTH_LONG).show()
+        }catch (ex: Exception){
+            Toast.makeText(this, "Error interno, por favor comuniquese con los desarrolladores.", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun setResultData(resultValue: String){
+        tvProbabilidad.text = resultValue
+        tvProbabilidadContraria.text = " ${BinomialHelper.probabilidadContraria(resultValue.toFloat())}"
         cvResultado.visibility = View.VISIBLE
     }
 
@@ -110,5 +134,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, Vi
         for (editText in editTexts){
             editText.text = null
         }
+    }
+
+    private fun validateInputData(value: String, mensaje:String="El valor no debe estar vació."){
+        if(value.isNullOrEmpty())
+            throw NumberFormatException(mensaje)
     }
 }
