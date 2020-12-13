@@ -5,6 +5,11 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+
+    <!--Colores de la app-->
+    <color name="black">#5A9AF4</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="Primary">#066cc1</color>
+    <color name="Light">#5a9af4</color>
+    <color name="Dark">#004290</color>
 </resources>

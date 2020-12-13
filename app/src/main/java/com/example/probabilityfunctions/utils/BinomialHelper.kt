@@ -10,6 +10,7 @@ class BinomialHelper {
          * @return El valor de probabilidad contraria de un evento.
          */
         fun probabilidadContraria(p: Float = 0f): Float{
+            validarValorProbabilidad(p)
             val q = 1 - p
             return q
         }
@@ -20,9 +21,9 @@ class BinomialHelper {
          * @return El valor del factorial de [n]. Si [n] es cero devuelve 1.
          */
         fun factorial(n: Int=0): Long{
+            validarFactorial(n)
             var factorial: Long = 1
             for (i in 1..n) {
-                // factorial = factorial * i;
                 factorial *= i.toLong()
             }
             return factorial
@@ -35,7 +36,8 @@ class BinomialHelper {
          * @return El valor de la combinación entre [n] y [x].
          */
         fun combinacionSinRepeticion(n: Int, x: Int): Long{
-
+            validarValoresNegativos(intArrayOf(n, x), "Los valores de n y x deben ser mayores o iguales a cero.")
+            validarValoresInicioFin(x, n, "El valor de x debe ser menor o igual a n.")
             val factorialN = factorial(n)
             val factorialK = factorial(x)
             val factorialNMenosX = factorial(n-x)
@@ -52,6 +54,9 @@ class BinomialHelper {
          * @return El valor de la probabilidad de que ocurra el evento [x].
          */
         fun probabilidadBinomial(n: Int, x: Int, p: Float): Double{
+            validarValorProbabilidad(p)
+            validarValoresNegativos(intArrayOf(n, x), "Los valores de n y x deben ser mayores o iguales a cero.")
+            validarValoresInicioFin(x, n, "El valor de x debe ser menor o igual a n.")
             val q = probabilidadContraria(p)
             val resultadoBinomial = combinacionSinRepeticion(n, x) * p.pow(x) * q.pow(n-x)
             return resultadoBinomial.toDouble()
@@ -75,6 +80,13 @@ class BinomialHelper {
                 n: Int, p: Float, inicio: Int=0,
                 fin: Int=n, incluirInicio: Boolean=true,
                 incluirFin: Boolean=true): Double{
+
+            validarValorProbabilidad(p)
+            validarValoresNegativos(intArrayOf(n), "El valor de n no puede ser negativo.")
+            validarValoresNegativos(intArrayOf(inicio, fin), "Los valores para x deben ser mayores o iguales a cero.")
+            validarValoresInicioFin(fin, n, "El valor de fin debe ser menor o igual a n.")
+            validarValoresInicioFin(inicio, fin, "El valor de inicio debe ser menor o igual al valor de fin.")
+
             val fin = if (incluirFin) fin else fin-1
             val inicio = if (incluirInicio) inicio else inicio+1
             var probabilidadAcumulada: Double = 0.0
@@ -85,5 +97,26 @@ class BinomialHelper {
             return probabilidadAcumulada
         }
 
+        fun validarValorProbabilidad(p:Float){
+            if(p<0 || p>1)
+                throw NumberFormatException("El valor de p debe estar entre cero y uno.")
+        }
+
+        fun validarFactorial(n:Int){
+            if(n < 0)
+                throw NumberFormatException("El valor de n debe ser mayor o igual a cero.")
+        }
+
+        fun validarValoresInicioFin(inicio: Int, fin: Int, message: String="Valores inválidos. Verifique."){
+            if (fin < inicio)
+                throw NumberFormatException(message)
+        }
+
+        fun validarValoresNegativos(numbers: IntArray, message: String="El valor no puede ser negativo."){
+            for (number in numbers){
+                if (number<0)
+                    throw NumberFormatException(message)
+            }
+        }
     }
 }
