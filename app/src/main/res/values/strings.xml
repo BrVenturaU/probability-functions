@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">ProbabilityFunctions</string>
+    <string name="app_name">Calculadora Probabilidad Discreta</string>
 
-<!--    Spinner values-->
+    <!--    Spinner values-->
     <string-array name="binomialOptions">
         <item>Seleccione una opción</item>
         <item>P(X = a)</item>
