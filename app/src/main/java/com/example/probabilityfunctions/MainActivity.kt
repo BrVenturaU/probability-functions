@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, Vi
             btnCalcular.id ->{
                 when(spOpciones.selectedItemPosition){
                     1->{
-
+                        calculateUnique()
                     }
                     2->{
                         calculateWithSpinner(etEventoDos, swOpcionDos, 2)
@@ -66,6 +66,24 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, Vi
             btnLimpiar.id->{
                 cleanInputs(arrayOf(etN, etProbabilidad, etEventoUno, etEventoDos, etEventoTres, etEventoCuatroA, etEventoCuatroB))
             }
+        }
+    }
+
+    private fun calculateUnique(){
+        try {
+            validateInputData(etN.text.toString(), etN, false,"El valor de n es requerido.")
+            validateInputData(etProbabilidad.text.toString(), etProbabilidad, false,"El valor de p es requerido.")
+            validateInputData(etEventoUno.text.toString(), etEventoUno, false,"El valor del evento x es requerido.")
+
+            val x = etEventoUno.text.toString().toInt()
+            val n = etN.text.toString().toInt()
+            val p = etProbabilidad.text.toString().toFloat()
+            val result = BinomialHelper.probabilidadBinomial(n, x, p)
+            setResultData(result.toString())
+        }catch (ne: NumberFormatException){
+            Toast.makeText(this, ne.message, Toast.LENGTH_SHORT).show()
+        }catch (ex: Exception){
+            Toast.makeText(this, "Error interno, por favor comuniquese con los desarrolladores.", Toast.LENGTH_LONG).show()
         }
     }
 
